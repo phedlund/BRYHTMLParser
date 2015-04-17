@@ -1,5 +1,8 @@
 Pod::Spec.new do |s|
-  s.name         = 'ObjectiveCHTMLParser'
+  s.name         = 'BRYHTMLParser'
+  s.authors      = 'Bryan Irace'
+  s.license      = 'MIT'
+  s.homepage     = 'https://github.com/irace/BRYHTMLParser'
   s.version      = '1.0.2'
   s.summary      = 'An Objective-C wrapper around libxml for parsing HTML.'
   s.source       = { :git => 'https://github.com/irace/ObjectiveCHTMLParser.git', :tag => "#{s.version}" }
