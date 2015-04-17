@@ -43,7 +43,7 @@ void setAttributeNamed(xmlNode * node, const char * nameStr, const char * value)
 	                    
 	                    if (!copyUsed)
 	                    {
-	                        copyUsed = true;
+	                    	copyUsed = true;
 	                    }
 	                }
 	                
@@ -68,8 +68,10 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
             
 	                if (child != NULL)
 	                {
-	                    return [NSString stringWithCString:(void*)child->content encoding:NSUTF8StringEncoding];
+	                	return [NSString stringWithCString:(void*)child->content encoding:NSUTF8StringEncoding];
 	                }
+
+	                break;
 		}
 	}
 	
