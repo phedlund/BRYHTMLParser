@@ -6,20 +6,23 @@
 //  Copyright 2010 Ben Reeves. All rights reserved.
 //
 
+#import "LibXMLHTMLNode.h"
 #import "HTMLParser.h"
+#import <libxml/HTMLparser.h>
 
+@implementation HTMLParser {
+    htmlDocPtr _doc;
+}
 
-@implementation HTMLParser
-
--(HTMLNode*)doc
+-(LibXMLHTMLNode*)doc
 {
 	if (_doc == NULL)
 		return NULL;
 	
-	return [[[HTMLNode alloc] initWithXMLNode:(xmlNode*)_doc] autorelease];
+	return [[LibXMLHTMLNode alloc] initWithXMLNode:(xmlNode*)_doc];
 }
 
--(HTMLNode*)html
+-(LibXMLHTMLNode*)html
 {
 	if (_doc == NULL)
 		return NULL;
@@ -27,7 +30,7 @@
 	return [[self doc] findChildTag:@"html"];
 }
 
--(HTMLNode*)head
+-(LibXMLHTMLNode*)head
 {
 	if (_doc == NULL)
 		return NULL;
@@ -35,7 +38,7 @@
 	return [[self doc] findChildTag:@"head"];
 }
 
--(HTMLNode*)body
+-(LibXMLHTMLNode*)body
 {
 	if (_doc == NULL)
 		return NULL;
@@ -43,7 +46,7 @@
 	return [[self doc] findChildTag:@"body"];
 }
 
--(id)initWithString:(NSString*)string error:(NSError**)error
+-(instancetype)initWithString:(NSString*)string error:(NSError**)error
 { 
 	if (self = [super init])
 	{
@@ -71,7 +74,7 @@
 	return self;
 }
 
--(id)initWithData:(NSData*)data error:(NSError**)error
+-(instancetype)initWithData:(NSData*)data error:(NSError**)error
 {
 	if (self = [super init])
 	{
@@ -102,20 +105,18 @@
 	return self;
 }
 
--(id)initWithContentsOfURL:(NSURL*)url error:(NSError**)error
+-(instancetype)initWithContentsOfURL:(NSURL*)url error:(NSError**)error
 {
 	
 	NSData * _data = [[NSData alloc] initWithContentsOfURL:url options:0 error:error];
 
 	if (_data == nil || *error)
 	{
-		[_data release];
 		return nil;
 	}
 	
 	self = [self initWithData:_data error:error];
 	
-	[_data release];
 	
 	return self;
 }
@@ -128,7 +129,6 @@
 		xmlFreeDoc(_doc);
 	}
 	
-	[super dealloc];
 }
 
 @end
