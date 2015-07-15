@@ -6,22 +6,28 @@
 //  Copyright 2010 Ben Reeves. All rights reserved.
 //
 
-#import "HTMLNode.h"
+#import "LibXMLHTMLNode.h"
 #import <libxml/HTMLtree.h>
 
-@implementation HTMLNode
+@interface LibXMLHTMLNode ()
 
--(HTMLNode*)parent
+@property (nonatomic) xmlNode * node;
+
+@end
+
+@implementation LibXMLHTMLNode
+
+-(LibXMLHTMLNode*)parent
 {
-	return [[[HTMLNode alloc] initWithXMLNode:_node->parent] autorelease];	
+	return [[LibXMLHTMLNode alloc] initWithXMLNode:_node->parent];	
 }
 
--(HTMLNode*)nextSibling {
-	return [[[HTMLNode alloc] initWithXMLNode:_node->next] autorelease];
+-(LibXMLHTMLNode*)nextSibling {
+	return [[LibXMLHTMLNode alloc] initWithXMLNode:_node->next];
 }
 
--(HTMLNode*)previousSibling {
-	return [[[HTMLNode alloc] initWithXMLNode:_node->prev] autorelease];	
+-(LibXMLHTMLNode*)previousSibling {
+	return [[LibXMLHTMLNode alloc] initWithXMLNode:_node->prev];	
 }
 
 void setAttributeNamed(xmlNode * node, const char * nameStr, const char * value) {
@@ -101,9 +107,9 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 }
 
 
--(HTMLNode*)firstChild
+-(LibXMLHTMLNode*)firstChild
 {
-	return [[[HTMLNode alloc] initWithXMLNode:_node->children] autorelease];	
+	return [[LibXMLHTMLNode alloc] initWithXMLNode:_node->children];	
 }
 
 
@@ -132,7 +138,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 					if (match)
 					{
 						//Found node
-						HTMLNode * nNode = [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+						LibXMLHTMLNode * nNode = [[LibXMLHTMLNode alloc] initWithXMLNode:cur_node];
 						[array addObject:nNode];
 						break;
 					}
@@ -158,7 +164,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	{				
 		if (cur_node->name && strcmp((char*)cur_node->name, tagNameStr) == 0)
 		{
-			HTMLNode * node = [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+			LibXMLHTMLNode * node = [[LibXMLHTMLNode alloc] initWithXMLNode:cur_node];
 			[array addObject:node];
 			
 		}
@@ -177,7 +183,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	return array;
 }
 
--(HTMLNode*)findChildTag:(NSString*)tagName inXMLNode:(xmlNode *)node
+-(LibXMLHTMLNode*)findChildTag:(NSString*)tagName inXMLNode:(xmlNode *)node
 {
 	xmlNode *cur_node = NULL;
 	const char * tagNameStr =  [tagName UTF8String];
@@ -186,10 +192,10 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	{				
 		if (cur_node && cur_node->name && strcmp((char*)cur_node->name, tagNameStr) == 0)
 		{
-			return [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+			return [[LibXMLHTMLNode alloc] initWithXMLNode:cur_node];
 		}
 		
-		HTMLNode * cNode = [self findChildTag:tagName inXMLNode:cur_node->children];
+		LibXMLHTMLNode * cNode = [self findChildTag:tagName inXMLNode:cur_node->children];
 		if (cNode != NULL)
 		{
 			return cNode;
@@ -199,7 +205,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	return NULL;
 }
 
--(HTMLNode*)findChildTag:(NSString*)tagName
+-(LibXMLHTMLNode*)findChildTag:(NSString*)tagName
 {
 	return [self findChildTag:tagName inXMLNode:_node->children];
 }
@@ -212,7 +218,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 
 	for (cur_node = _node->children; cur_node; cur_node = cur_node->next) 
 	{	
-		HTMLNode * node = [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+		LibXMLHTMLNode * node = [[LibXMLHTMLNode alloc] initWithXMLNode:cur_node];
 		[array addObject:node];
 	}
 	
@@ -234,7 +240,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	return string;
 }*/
 
--(HTMLNode*)findChildWithAttribute:(const char*)attribute matchingName:(const char*)name inXMLNode:(xmlNode *)node allowPartial:(BOOL)partial
+-(LibXMLHTMLNode*)findChildWithAttribute:(const char*)attribute matchingName:(const char*)name inXMLNode:(xmlNode *)node allowPartial:(BOOL)partial
 {
 	xmlNode *cur_node = NULL;
 	const char * classNameStr = name;
@@ -260,14 +266,14 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 					
 					if (match)
 					{					
-						return [[[HTMLNode alloc] initWithXMLNode:cur_node] autorelease];
+						return [[LibXMLHTMLNode alloc] initWithXMLNode:cur_node];
 					}
 				}
 				break;
 			}
 		}
 		
-		HTMLNode * cNode = [self findChildWithAttribute:attribute matchingName:name inXMLNode:cur_node->children allowPartial:partial];
+		LibXMLHTMLNode * cNode = [self findChildWithAttribute:attribute matchingName:name inXMLNode:cur_node->children allowPartial:partial];
 		if (cNode != NULL)
 		{
 			return cNode;
@@ -277,14 +283,14 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	return NULL;
 }
 
--(HTMLNode*)findChildWithAttribute:(NSString*)attribute matchingName:(NSString*)className allowPartial:(BOOL)partial
+-(LibXMLHTMLNode*)findChildWithAttribute:(NSString*)attribute matchingName:(NSString*)className allowPartial:(BOOL)partial
 {
 	return [self findChildWithAttribute:[attribute UTF8String] matchingName:[className UTF8String] inXMLNode:_node->children allowPartial:partial];
 }
 
--(HTMLNode*)findChildOfClass:(NSString*)className
+-(LibXMLHTMLNode*)findChildOfClass:(NSString*)className
 {	
-	HTMLNode * node = [self findChildWithAttribute:"class" matchingName:[className UTF8String]  inXMLNode:_node->children allowPartial:NO];
+	LibXMLHTMLNode * node = [self findChildWithAttribute:"class" matchingName:[className UTF8String]  inXMLNode:_node->children allowPartial:NO];
 	return node;
 }
 
@@ -303,7 +309,7 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	return [self findChildrenWithAttribute:@"class" matchingName:className allowPartial:NO];
 }
 
--(id)initWithXMLNode:(xmlNode*)xmlNode
+-(instancetype)initWithXMLNode:(xmlNode*)xmlNode
 {
 	if (self = [super init])
 	{
@@ -425,7 +431,7 @@ NSString * rawContentsOfNode(xmlNode * node)
 	NSString * string = nil;
 	
 	if (buffer->content) {
-		string = [[[NSString alloc] initWithBytes:(const void *)xmlBufferContent(buffer) length:xmlBufferLength(buffer) encoding:NSUTF8StringEncoding] autorelease];
+		string = [[NSString alloc] initWithBytes:(const void *)xmlBufferContent(buffer) length:xmlBufferLength(buffer) encoding:NSUTF8StringEncoding];
 	}
 	
 	xmlOutputBufferClose(buf);
