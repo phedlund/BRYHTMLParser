@@ -74,6 +74,12 @@
 	return self;
 }
 
+#ifdef NS_UNAVAILABLE
+- (instancetype)init NS_UNAVAILABLE {
+    return nil;
+}
+#endif
+
 -(instancetype)initWithData:(NSData*)data error:(NSError**)error
 {
 	if (self = [super init])

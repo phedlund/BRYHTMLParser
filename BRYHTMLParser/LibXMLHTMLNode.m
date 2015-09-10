@@ -318,6 +318,12 @@ NSString * getAttributeNamed(xmlNode * node, const char * nameStr)
 	return self;
 }
 
+#ifdef NS_UNAVAILABLE
+- (instancetype)init NS_UNAVAILABLE {
+    return nil;
+}
+#endif
+
 -(void)appendChildContentsToString:(NSMutableString*)string inNode:(xmlNode*)node
 {
 	if (node == NULL)
