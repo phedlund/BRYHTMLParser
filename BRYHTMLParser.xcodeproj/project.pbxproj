@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9356891F1B56E36E00DEAEF3 /* HTMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 9356891E1B56E36E00DEAEF3 /* HTMLNode.h */; };
-		939D8AA21B56D69100504F60 /* LibXMLHTMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 939D8A9E1B56D69100504F60 /* LibXMLHTMLNode.h */; };
+		9356891F1B56E36E00DEAEF3 /* HTMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 9356891E1B56E36E00DEAEF3 /* HTMLNode.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		939D8AA21B56D69100504F60 /* LibXMLHTMLNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 939D8A9E1B56D69100504F60 /* LibXMLHTMLNode.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		939D8AA31B56D69100504F60 /* LibXMLHTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 939D8A9F1B56D69100504F60 /* LibXMLHTMLNode.m */; };
-		939D8AA41B56D69100504F60 /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 939D8AA01B56D69100504F60 /* HTMLParser.h */; };
+		939D8AA41B56D69100504F60 /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 939D8AA01B56D69100504F60 /* HTMLParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		939D8AA51B56D69100504F60 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 939D8AA11B56D69100504F60 /* HTMLParser.m */; };
 		939D8AA91B56D71500504F60 /* BRYHTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 939D8AA81B56D6FB00504F60 /* BRYHTMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		939D8AAB1B56D76100504F60 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 939D8AAA1B56D76100504F60 /* libxml2.dylib */; };
@@ -87,9 +87,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				939D8AA91B56D71500504F60 /* BRYHTMLParser.h in Headers */,
-				939D8AA21B56D69100504F60 /* LibXMLHTMLNode.h in Headers */,
 				939D8AA41B56D69100504F60 /* HTMLParser.h in Headers */,
 				9356891F1B56E36E00DEAEF3 /* HTMLNode.h in Headers */,
+				939D8AA21B56D69100504F60 /* LibXMLHTMLNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
